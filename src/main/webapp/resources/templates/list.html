@@ -1,0 +1,43 @@
+    <table cellpadding="0" cellspacing="0" class="style140" style="width: 960px">
+        <tr>
+        	<td class="style231"><strong>Projects List</strong></td>
+        </tr>
+    </table>
+    <p>
+
+
+    <br/>
+    <div>
+    	<table class="style112" style="width: 960px" cellpadding="5">
+        	<tr>
+        		<td>
+            		<table cellpadding="3" class="style39" style="width: 100%;">
+            			<tr>
+                			<td class="td_fieldContent">
+
+                					<table align="left" class="auto-style2" style="width: 100%">
+                						<tr>
+                								<th class="td_fieldTitle" style="height: 11px; " width="2%">
+                								</th>
+                								<th class="style246" style="height: 11px; width: 98%;" align="center">
+                								&nbsp;Projects</th>
+                						</tr>
+                						<tr ng-repeat="x in projects">
+                        					<td style="height: 18px" class="style12" width="2%">
+                								<img alt="" height="14" src="images/close_inline.png" width="12" style="float: right" ng-click="removeProject(x.id)"/>
+                                            </td>
+                        					<td class="style12" style="height: 18px; width: 15%;">
+                            					&nbsp;&nbsp;
+                            					<a href="/#{{ x.id }}"><u>{{ x.title }}</u></a>
+                                            </td>
+                    					</tr>
+                    				</table>
+
+                			</td>
+            			</tr>
+            		</table>
+            		&nbsp;<a href="/#/add"><img alt="Add" class="style109" src="images/img11.png" /></a>
+                </td>
+        	</tr>
+    	</table>
+    </div>
