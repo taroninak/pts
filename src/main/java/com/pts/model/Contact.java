@@ -55,6 +55,7 @@ public class Contact {
         this.projectId = projectId;
         this.contact = contact;
         this.email = email;
+        this.phone = "";
     }
 
     public Contact(Integer id, Integer projectId, String contact, String email, String phone) {
