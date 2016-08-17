@@ -38,8 +38,9 @@ public class ProjectService {
     }
 
     public void editProject(Project project) {
-        String update = "UPDATE Projects SET (title=?, status=?) WHERE id=?";
-        jdbcTemplate.update(update, project.getTitle(), project.getStatus().toString(), project.getId());
+        String update = "UPDATE Projects SET title='" + project.getTitle() + "', status='" +
+                project.getStatus().toString() + "' WHERE id=" + project.getId();
+        jdbcTemplate.update(update);
     }
 
     public void deleteProject(int id) {

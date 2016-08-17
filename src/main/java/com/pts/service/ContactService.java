@@ -39,8 +39,10 @@ public class ContactService {
     }
 
     public void editContact(Contact contact) {
-        String update = "UPDATE Contacts SET (project_id=?, contact=?, email=?, phone=?) WHERE id=?";
-        jdbcTemplate.update(update, contact.getProjectId(), contact.getContact(), contact.getEmail(), contact.getPhone(), contact.getId());
+        String update = "UPDATE Contacts SET project_id=" + contact.getProjectId() +
+                ", contact='" + contact.getContact() + "', email='" + contact.getEmail() +
+                "', phone='" + contact.getPhone() + "' WHERE id=" + contact.getId();
+        jdbcTemplate.update(update);
     }
 
     public void deleteContact(int id) {
