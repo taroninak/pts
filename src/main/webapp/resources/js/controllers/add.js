@@ -27,7 +27,7 @@ angular.module("projectApp").controller('addCtrl', function ($scope, $http, $rou
         $http.post("/api/projects", JSON.stringify($scope.project)).then(function (result) {
             if(!$scope.contacts || !$scope.contacts.length) return window.history.back();
             for (var index in $scope.contacts) {
-                $scope.contacts[index].projectId = result.dtata.id;
+                $scope.contacts[index].projectId = result.data.id;
                 if(!$scope.contacts[index].phone) {
                     $scope.contacts[index].phone = '';
                 }
