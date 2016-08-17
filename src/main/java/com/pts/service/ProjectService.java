@@ -1,9 +1,11 @@
 package com.pts.service;
 
+import com.pts.helper.SimplePreparedStatmentCreator;
 import com.pts.model.Project;
 import com.pts.model.ProjectRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Component;
 
 import javax.swing.tree.RowMapper;
@@ -22,6 +24,12 @@ public class ProjectService {
     @Autowired
     private ProjectRowMapper projectRowMapper;
 
+    @Autowired
+    private GeneratedKeyHolder generatedKeyHolder;
+
+    @Autowired
+    private SimplePreparedStatmentCreator simplePreparedStatmentCreator;
+
     public List<Project> listProjects() {
         String select = "SELECT * FROM Projects";
         return jdbcTemplate.query(select, projectRowMapper);
@@ -32,9 +40,12 @@ public class ProjectService {
         return jdbcTemplate.query(select, projectRowMapper).get(0);
     }
 
-    public void addProject(Project project) {
-        String insert = "INSERT INTO Projects (title, status) VALUES(?, ?)";
-        jdbcTemplate.update(insert, project.getTitle(), project.getStatus().toString());
+    public int addProject(Project project) {
+        String insert = "INSERT INTO Projects (title, status) VALUES('" + project.getTitle() +
+                "', '" + project.getStatus().toString() + "')";
+        simplePreparedStatmentCreator.setSql(insert);
+        jdbcTemplate.update(simplePreparedStatmentCreator, generatedKeyHolder);
+        return generatedKeyHolder.getKey().intValue();
     }
 
     public void editProject(Project project) {

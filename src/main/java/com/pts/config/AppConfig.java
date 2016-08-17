@@ -1,5 +1,6 @@
 package com.pts.config;
 
+import com.pts.helper.SimplePreparedStatmentCreator;
 import com.pts.model.ContactRowMapper;
 import com.pts.model.ProjectRowMapper;
 import com.pts.service.ContactService;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 
 import javax.sql.DataSource;
 import java.util.Random;
@@ -19,12 +21,22 @@ public class AppConfig {
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(new DriverManagerDataSource("jdbc:mysql://localhost:3306?useSSL=false&serverTimezone=UTC","root","password"));
+        return new JdbcTemplate(new DriverManagerDataSource("jdbc:mysql://localhost:3306?useSSL=false&serverTimezone=UTC", "root", "password"));
     }
 
     @Bean
     public DataSource dataSource() {
-        return new DriverManagerDataSource("jdbc:mysql://localhost:3306/PTS?useSSL=false&serverTimezone=UTC","root","password");
+        return new DriverManagerDataSource("jdbc:mysql://localhost:3306/PTS?useSSL=false&serverTimezone=UTC", "root", "password");
+    }
+
+    @Bean
+    public GeneratedKeyHolder generatedKeyHolder() {
+        return new GeneratedKeyHolder();
+    }
+
+    @Bean
+    public SimplePreparedStatmentCreator simplePreparedStatmentCreator() {
+        return new SimplePreparedStatmentCreator();
     }
 
     @Bean

@@ -69,8 +69,8 @@ public class ApiController {
         }catch(Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        projectService.addProject(project);
-        return ResponseEntity.status(HttpStatus.CREATED).location(URI.create("/api/projects")).body(null);
+        int id  = projectService.addProject(project);
+        return ResponseEntity.status(HttpStatus.CREATED).location(URI.create("/api/projects/" + id)).body("{ \"id\":" + id +" }");
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -149,8 +149,8 @@ public class ApiController {
         }catch(Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        contactService.addContact(contact);
-        return ResponseEntity.status(HttpStatus.CREATED).location(URI.create("/api/projects")).body(null);
+        int id = contactService.addContact(contact);
+        return ResponseEntity.status(HttpStatus.CREATED).location(URI.create("/api/contacts" + id)).body("{ \"id\":" + id +" }");
     }
 
     @SuppressWarnings("SameReturnValue")

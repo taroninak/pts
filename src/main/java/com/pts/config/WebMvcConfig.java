@@ -1,11 +1,13 @@
 package com.pts.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pts.helper.SimplePreparedStatmentCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -35,6 +37,16 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public DataSource dataSource() {
         return new DriverManagerDataSource("jdbc:mysql://localhost:3306/PTS?useSSL=false&serverTimezone=UTC","root","password");
+    }
+
+    @Bean
+    public GeneratedKeyHolder generatedKeyHolder() {
+        return new GeneratedKeyHolder();
+    }
+
+    @Bean
+    public SimplePreparedStatmentCreator simplePreparedStatmentCreator() {
+        return new SimplePreparedStatmentCreator();
     }
 
     @Bean

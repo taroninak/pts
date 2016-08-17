@@ -1,9 +1,11 @@
 package com.pts.service;
 
+import com.pts.helper.SimplePreparedStatmentCreator;
 import com.pts.model.Contact;
 import com.pts.model.ContactRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,13 @@ public class ContactService {
 
     @Autowired
     private ContactRowMapper contactRowMapper;
+
+
+    @Autowired
+    private GeneratedKeyHolder generatedKeyHolder;
+
+    @Autowired
+    private SimplePreparedStatmentCreator simplePreparedStatmentCreator;
 
     public List<Contact> listContacts() {
         String select = "SELECT * FROM Contacts";
@@ -33,9 +42,13 @@ public class ContactService {
         return jdbcTemplate.query(select, contactRowMapper).get(0);
     }
 
-    public void addContact(Contact contact) {
-        String insert = "INSERT INTO Contacts (project_id, contact, email, phone) VALUES(?, ?, ?, ?)";
-        jdbcTemplate.update(insert, contact.getProjectId(), contact.getContact(), contact.getEmail(), contact.getPhone());
+    public int addContact(Contact contact) {
+        String insert = "INSERT INTO Contacts (project_id, contact, email, phone) VALUES('" +
+                contact.getProjectId() + "','" + contact.getContact() + "','" + contact.getEmail() +
+                "','" + contact.getPhone() + "')";
+        simplePreparedStatmentCreator.setSql(insert);
+        jdbcTemplate.update(simplePreparedStatmentCreator, generatedKeyHolder);
+        return generatedKeyHolder.getKey().intValue();
     }
 
     public void editContact(Contact contact) {
