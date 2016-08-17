@@ -1,6 +1,6 @@
 <table cellpadding="0" cellspacing="0" class="style140" style="width: 968px">
 	<tr>
-		<td class="style231"><strong>Project Edit Form</strong></td>
+		<td class="style231"><strong>{{ title }}</strong></td>
 	</tr>
 </table>
 <p>
@@ -23,22 +23,22 @@ Required Fields</font></p>
 		<table cellpadding="3" class="style39" style="height: 100%;">
 			<tr class="td_fieldTitle">
 				<td style="height: 17px"><span class="txtHeadingNumber">1.1</span>
-				<strong>{{project.title}}</strong><b>
+				<strong>Project Title</strong><b>
 				<font size="2" color="#FF0000">*</font></b></td>
 			</tr>
 			<tr>
-				<td class="td_fieldContent" style="height: 4px;"><input class="frm" name="T438" size="14" style="width: 930px; height:17" type="text" value="{{project.title}}">
+				<td class="td_fieldContent" style="height: 4px;"><input class="frm" name="T438" size="14" style="width: 930px; height:17" type="text" value="{{project.title}}" ng-model="project.title">
 				</td>
 			</tr>
 			<tr>
 				<td class="td_fieldTitle" style="height: 4px;">
 				<span class="txtHeadingNumber">1.2</span>
-				<strong>{{project.status}}</strong><b>
+				<strong>Project Status</strong><b>
 				<font size="2" color="#FF0000">*</font></b></td>
 			</tr>
 			<tr>
 				<td class="td_fieldContent" style="height: 4px;">
-				<select class="frm" name="Select82" style="width: 217; height: 18;" ng-model="selectedStatus" ng-options="x for x in statuses">
+				<select class="frm" name="Select82" style="width: 217; height: 18;" ng-model="project.status" ng-options="x for x in statuses"/>
 				</td>
 			</tr>
 			<tr>
@@ -50,7 +50,7 @@ Required Fields</font></p>
 			<tr>
 				<td>
 				<table id="table469" border="0" cellpadding="3" cellspacing="0" class="style155" style="width:800px">
-					<tr>
+					<tr class="style246">
 						<th width="2%">&nbsp;</th>
 						<th align="center" class="auto-style6" width="48%">
 						Contact <b>
@@ -64,17 +64,17 @@ Required Fields</font></p>
 						<td style="height: 19px;" valign="top" width="2%">
 						<img alt="" height="14" src="images/close_inline.png" width="12" ng-click="removeContact(x.id)"/></td>
 						<td class="style12" style="height: 19px;" valign="top">
-						<input class="frm" name="T439" size="150" value="{{ x.contact }}" style="width: 354px; height:18" type="text"></td>
+						<input class="frm" name="T439" size="150" value="{{ x.contact }}" ng-model="x.contact" style="width: 354px; height:18" type="text"></td>
 						<td class="style12" style="height: 19px;" valign="top">
-						<input class="frm" name="T440" size="150" value="{{ x.email }}" style="width: 200px; height:18" type="text"></td>
+						<input class="frm" name="T440" size="150" value="{{ x.email }}" ng-model="x.email" style="width: 200px; height:18" type="text"></td>
 						<td class="style12" valign="top" style="height: 19px">
-						<input class="frm" name="T441" size="150" value="{{ x.phone }}" style="width: 200px; height:18" type="text"></td>
+						<input class="frm" name="T441" size="150" value="{{ x.phone }}" ng-model="x.phone" style="width: 200px; height:18" type="text"></td>
 					</tr>
 				</td>
 
 			</tr>
 		</table>
-        <img alt="" class="style109" src="images/img11.png" />
+        <img alt="" class="style109" src="images/img11.png" ng-click="add()"/>
 		</td>
 	</tr>
 
