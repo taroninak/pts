@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,9 @@ import java.util.Random;
 public class ManipulationService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Resource(name = "dbName")
+    private String dbName;
 
     @Autowired
     private DataSource dataSource;
@@ -36,11 +40,11 @@ public class ManipulationService {
     private ContactService contactService;
 
     public void createPtsDb() {
-        String use = "USE pts";
+        String use = "USE " + dbName;
         try {
             jdbcTemplate.execute(use);
         } catch (Exception ex) {
-            String sql = "CREATE DATABASE pts";
+            String sql = "CREATE DATABASE " + dbName;
             jdbcTemplate.execute(sql);
         } finally {
             jdbcTemplate.setDataSource(dataSource);

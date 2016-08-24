@@ -1,10 +1,14 @@
 package com.pts.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pts.helper.SimplePreparedStatmentCreator;
+import com.pts.helper.SimplePreparedStatementCreator;
+import com.pts.service.ContactService;
+import com.pts.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -21,6 +25,9 @@ import javax.sql.DataSource;
 @ComponentScan(basePackages = "com.pts")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
+    @Autowired
+    Environment env;
+
     @Bean
     public ViewResolver viewResolver(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -36,8 +43,34 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataSource dataSource() {
-        return new DriverManagerDataSource("jdbc:mysql://localhost:3306/PTS?useSSL=false&serverTimezone=UTC","root","password");
+        return new DriverManagerDataSource("jdbc:mysql://" + dbHost() + ":" + dbPort() + "/" + dbName() + "?useSSL=false&serverTimezone=UTC", dbUsername(), dbPassword());
     }
+
+    @Bean
+    public String dbName() {
+        return env.getRequiredProperty("DBNAME", String.class);
+    }
+
+    @Bean
+    public String dbUsername() {
+        return env.getRequiredProperty("DBUSERNAME", String.class);
+    }
+
+    @Bean
+    public  String dbPassword() {
+        return env.getRequiredProperty("DBPASSWORD", String.class);
+    }
+
+    @Bean
+    public String dbHost() {
+        return env.getRequiredProperty("DBHOST", String.class);
+    }
+
+    @Bean
+    public String dbPort() {
+        return env.getRequiredProperty("DBPORT", String.class);
+    }
+
 
     @Bean
     public GeneratedKeyHolder generatedKeyHolder() {
@@ -45,13 +78,23 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public SimplePreparedStatmentCreator simplePreparedStatmentCreator() {
-        return new SimplePreparedStatmentCreator();
+    public SimplePreparedStatementCreator simplePreparedStatementCreator() {
+        return new SimplePreparedStatementCreator();
     }
 
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
+    }
+
+    @Bean
+    public ProjectService dbService() {
+        return new ProjectService();
+    }
+
+    @Bean
+    public ContactService contactService() {
+        return new ContactService();
     }
 
     @Override

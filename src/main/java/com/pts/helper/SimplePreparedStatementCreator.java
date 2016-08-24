@@ -10,7 +10,7 @@ import java.sql.Statement;
 /**
  * Created by taronpetrosyan on 8/17/16.
  */
-public class SimplePreparedStatmentCreator implements PreparedStatementCreator {
+public class SimplePreparedStatementCreator implements PreparedStatementCreator {
     private String sql;
 
     public String getSql() {
@@ -21,11 +21,11 @@ public class SimplePreparedStatmentCreator implements PreparedStatementCreator {
         this.sql = sql;
     }
 
-    public SimplePreparedStatmentCreator() {
+    public SimplePreparedStatementCreator() {
         this.sql = "";
     }
 
-    public SimplePreparedStatmentCreator(String sql) {
+    public SimplePreparedStatementCreator(String sql) {
         this.sql = sql;
     }
 

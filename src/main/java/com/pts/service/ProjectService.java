@@ -1,6 +1,6 @@
 package com.pts.service;
 
-import com.pts.helper.SimplePreparedStatmentCreator;
+import com.pts.helper.SimplePreparedStatementCreator;
 import com.pts.model.Project;
 import com.pts.model.ProjectRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Component;
 
-import javax.swing.tree.RowMapper;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by taronpetrosyan on 8/15/16.
@@ -28,7 +25,7 @@ public class ProjectService {
     private GeneratedKeyHolder generatedKeyHolder;
 
     @Autowired
-    private SimplePreparedStatmentCreator simplePreparedStatmentCreator;
+    private SimplePreparedStatementCreator simplePreparedStatementCreator;
 
     public List<Project> listProjects() {
         String select = "SELECT * FROM Projects";
@@ -43,8 +40,8 @@ public class ProjectService {
     public int addProject(Project project) {
         String insert = "INSERT INTO Projects (title, status) VALUES('" + project.getTitle() +
                 "', '" + project.getStatus().toString() + "')";
-        simplePreparedStatmentCreator.setSql(insert);
-        jdbcTemplate.update(simplePreparedStatmentCreator, generatedKeyHolder);
+        simplePreparedStatementCreator.setSql(insert);
+        jdbcTemplate.update(simplePreparedStatementCreator, generatedKeyHolder);
         return generatedKeyHolder.getKey().intValue();
     }
 

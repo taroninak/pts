@@ -1,13 +1,12 @@
 package com.pts.service;
 
-import com.pts.helper.SimplePreparedStatmentCreator;
+import com.pts.helper.SimplePreparedStatementCreator;
 import com.pts.model.Contact;
 import com.pts.model.ContactRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public class ContactService {
     private GeneratedKeyHolder generatedKeyHolder;
 
     @Autowired
-    private SimplePreparedStatmentCreator simplePreparedStatmentCreator;
+    private SimplePreparedStatementCreator simplePreparedStatementCreator;
 
     public List<Contact> listContacts() {
         String select = "SELECT * FROM Contacts";
@@ -46,8 +45,8 @@ public class ContactService {
         String insert = "INSERT INTO Contacts (project_id, contact, email, phone) VALUES('" +
                 contact.getProjectId() + "','" + contact.getContact() + "','" + contact.getEmail() +
                 "','" + contact.getPhone() + "')";
-        simplePreparedStatmentCreator.setSql(insert);
-        jdbcTemplate.update(simplePreparedStatmentCreator, generatedKeyHolder);
+        simplePreparedStatementCreator.setSql(insert);
+        jdbcTemplate.update(simplePreparedStatementCreator, generatedKeyHolder);
         return generatedKeyHolder.getKey().intValue();
     }
 
